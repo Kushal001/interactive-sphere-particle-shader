@@ -1,6 +1,6 @@
-~!~ THREE.JS, WebGL & JS
+###### THREE.JS, WebGL & JS
 
-~ Particle practice 
+Particle practice 
 
-~INITIAL_IDEA
+INITIAL_IDEA
 Create a interactive shader with PointsMaterial
