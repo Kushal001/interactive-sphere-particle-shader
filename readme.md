@@ -2,10 +2,8 @@
 
 ## Introduction
 Interactive particle shader using PointMarerial and Shaders
-
-``` Notes
 Bruno Simon animated galaxy and generate galaxy practice
 
--- Notes
+## Notes
 Have to use loops to use points materials
-```
+
