@@ -1,16 +1,11 @@
-# Three.js Journey
+# Three.js, WebGL, glsl
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+## Introduction
+Interactive particle shader using PointMarerial and Shaders
 
-``` bash
-# Install dependencies (only the first time)
-npm install
+``` Notes
+Bruno Simon animated galaxy and generate galaxy practice
 
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
+-- Notes
+Have to use loops to use points materials
 ```
