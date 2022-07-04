@@ -2,6 +2,7 @@ import "./style.css"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 import * as dat from "dat.gui"
+import { Color, Geometry } from "three"
 
 /**
  * Base
@@ -16,27 +17,69 @@ const canvas = document.querySelector("canvas.webgl")
 const scene = new THREE.Scene()
 
 /**
- * Particle
+ * Particles
  */
-// Geometry
-const pointGeometry = new THREE.PlaneBufferGeometry(4, 4)
+const parameters = {}
 
-// pointGeometry.setAttribute("color", new THREE.BufferAttribute())
+parameters.count = 100000
+parameters.size = 0.001
 
-console.log(pointGeometry)
+let pointsGeometry,
+  pointsMaterial,
+  points = null
 
-// Material
-const pointMaterial = new THREE.PointsMaterial({
-  size: 0.01,
-  sizeAttenuation: true,
-  depthWrite: false,
-  blending: THREE.AdditiveBlending,
-  vertexColors: true,
-})
+const generateParticles = () => {
+  /**
+   * Destroy Galaxy
+   */
+  if (points !== null) {
+    pointsGeometry.dispose()
+    pointsMaterial.dispose()
+    scene.remove(points)
+  }
 
-const points = new THREE.Points(pointGeometry, pointMaterial)
+  const positions = new Float32Array(parameters.count * 3)
 
-scene.add(points)
+  for (let i = 0; i < parameters.count; i++) {
+    positions[i + 0] = Math.random() - 0.5
+    positions[i + 1] = Math.random() - 0.5
+    positions[i + 2] = Math.random() - 0.5
+  }
+
+  // Geometry
+  pointsGeometry = new THREE.BufferGeometry()
+  pointsGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(positions, 3)
+  )
+
+  // Material
+  pointsMaterial = new THREE.PointsMaterial({
+    size: parameters.size,
+    color: "#ff0",
+  })
+
+  // Points
+  points = new THREE.Points(pointsGeometry, pointsMaterial)
+
+  scene.add(points)
+}
+
+generateParticles()
+
+// Debug
+gui
+  .add(parameters, "count")
+  .min(1000)
+  .max(1000000)
+  .step(100)
+  .onFinishChange(generateParticles)
+gui
+  .add(parameters, "size")
+  .min(0.001)
+  .max(1)
+  .step(0.001)
+  .onFinishChange(generateParticles)
 
 /**
  * Sizes
